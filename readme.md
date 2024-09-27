@@ -1,3 +1,3 @@
-#Welcome To Bedget Buddy#
+#Welcome To Budget Buddy#
 
 A Personal Friend to Plan Your Budget!!!
