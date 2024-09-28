@@ -30,7 +30,7 @@ def user_login(request):
             return redirect('users:login')
         else:
             login(request, user)
-            return HttpResponse('<h1>Login Successful</h1>')
+            return redirect('tracking:dashboard')
 
     return render(request, 'users/loginpage.html')
 

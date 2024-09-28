@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import add_income, add_expense,dashboard
+from .views import create_account, create_category, create_transaction ,dashboard
 
 app_name = 'tracking'
-
 urlpatterns = [
-    path('addincome/', add_income, name='add_income'),
-    path('addexpense/', add_expense, name='add_expense'),
-    path('',dashboard,name="dashboard"),
+    path('createAccount/', create_account, name='createAccount'),
+    path('createCategory', create_category, name='createCategory'),
+    path('createTransaction', create_transaction, name='createTransaction'),
+    path('', dashboard, name="dashboard"),
 ]

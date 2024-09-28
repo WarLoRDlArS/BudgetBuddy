@@ -1,43 +1,49 @@
 from django.shortcuts import render,redirect
-from .forms import IncomeForm, ExpenseForm
-from .models import Income, Expense
+from .forms import CategoryForm, AccountForm, TransactionForm
 from django.contrib.auth.decorators import login_required
 
 
 @login_required(login_url = "users:login")
-def add_income(request):
+def create_category(request):
     if request.method == 'POST':
-        form = IncomeForm(request.POST)
+        form = CategoryForm(request.POST)
         if form.is_valid():
-            income = form.save(commit=False)
-            ##income.user = request.user  
-            ##income.save()
-            
+            form.save()
+            return redirect('tracking: dashboard')  
     else:
-        form = IncomeForm()
-
-    return render(request, 'tracking/add_income.html', {'form': form})
+        form = CategoryForm()
+    return render(request, 'tracking/createCategory.html', {'form': form})
 
 
 @login_required(login_url = "users:login")
-def add_expense(request):
+def create_account(request):
     if request.method == 'POST':
-        form = ExpenseForm(request.POST)
+        form = AccountForm(request.POST)
         if form.is_valid():
-            expense = form.save(commit=False)
-            ##expense.user = request.user 
-            ##expense.save()
-             
+            account = form.save(commit=False)
+            account.user = request.user  # Associate account with the logged-in user
+            account.save()
+            return redirect('tracking:dashboard')
     else:
-        form = ExpenseForm()
+        form = AccountForm()
+    return render(request, 'tracking/createAccount.html', context={'form': form})
 
-    return render(request, 'tracking/add_expense.html', {'form': form})
 
+@login_required(login_url='users:login')
+def create_transaction(request):
+    if request.method == 'POST':
+        form = TransactionForm(request.POST)
+        if form.is_valid():
+            transaction = form.save(commit=False)
+            transaction.user = request.user  
+            transaction.save()
+            return redirect('tracking:dashboard')
+    else:
+        form = TransactionForm()
+    return render(request, 'tracking/createTransaction.html', context={'form': form})
 
 
 @login_required(login_url = "users:login")
 def dashboard(request):
     return render(request,'tracking/dashboard.html')
 
-
-# Create your views here.

@@ -1,22 +1,20 @@
 from django import forms
-from .models import Income, Expense
+from .models import Category, Account, Transaction
 
-
-class IncomeForm(forms.ModelForm):
+class CategoryForm(forms.ModelForm):
     class Meta:
-        model = Income
-        fields = ['amount', 'description']
-        widgets = {
-            'description': forms.TextInput(attrs={'placeholder': 'Describe your income'}),
-            'amount': forms.NumberInput(attrs={'placeholder': 'Enter amount'}),
-        }
+        model = Category
+        fields = ['description', 'catname', 'essential']
 
-# Form for inputting expenses
-class ExpenseForm(forms.ModelForm):
+class AccountForm(forms.ModelForm):
     class Meta:
-        model = Expense
-        fields = ['amount', 'description']
+        model = Account
+        fields = ['account_type', 'account_description']
+
+class TransactionForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = ['amount', 'description', 'transaction_type', 'date']
         widgets = {
-            'description': forms.TextInput(attrs={'placeholder': 'Describe your expense'}),
-            'amount': forms.NumberInput(attrs={'placeholder': 'Enter amount'}),
+            'date': forms.DateInput(attrs={'type': 'date'}),
         }

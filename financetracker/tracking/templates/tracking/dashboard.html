@@ -43,11 +43,11 @@
         </div>
 
         <div class="mb-4">
-            <a href="{% url 'tracking:add_income' %}" class="btn btn-primary">Add Income</a>
-            <a href="{% url 'tracking:add_expense' %}" class="btn btn-secondary">Add Expense</a>
+            <a href="{% url 'tracking:createAccount' %}" class="btn btn-success">Create Account</a>
+            <a href="{% url 'tracking:createCategory' %}" class="btn btn-warning">Create Category</a>
+            <a href="{% url 'tracking:createTransaction' %}" class="btn btn-warning">Add Transaction</a>
         </div>
 
-        
         <h3>Recent Transactions</h3>
         <table class="table">
             <thead>
@@ -57,11 +57,17 @@
                     <th>Amount</th>
                 </tr>
             </thead>
-            
+            <tbody>
+                <!-- Example row; replace with actual data -->
+                <tr>
+                    <td>YYYY-MM-DD</td>
+                    <td>Example Transaction</td>
+                    <td>$0.00</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
-   
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
