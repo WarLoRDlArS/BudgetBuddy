@@ -11,36 +11,43 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate
+from django.http import HttpResponse
+
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        print(password)
         
-        if not (Users.objects.filter(username=username).exists()): 
+        if not (User.objects.filter(username=username).exists()): 
             messages.error(request, 'Invalid User Name')
             return redirect('users:login')
         
-        user = authenticate(user=username, password=password)
+        user = authenticate(username=username, password=password) 
+        
         if user is None:
             messages.error(request, 'Invalid Password')
             return redirect('users:login')
         else:
             login(request, user)
-            return redirect('home')
-    
+            return HttpResponse('<h1>Login Successful</h1>')
+
     return render(request, 'users/loginpage.html')
+
+
 def register_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        print(password)
         user = User.objects.filter(username=username)
         if user.exists():
             messages.error(request, 'User Already Exists')
             return redirect('users:register')
         user = User.objects.create(username=username)
-        user.set_password(password=password)
+        user.set_password(password)
         user.save()
         messages.info(request, 'Registration Successful')
-        return redirect('')
+        return redirect('users:login')
     
-    return render(request, 'user/registrationpage.html')
+    return render(request, 'users/registerpage.html')
