@@ -9,6 +9,7 @@ from .models import Transaction
 from django.utils import timezone
 from datetime import timedelta, datetime
  
+
 @login_required(login_url="users:login")
 def create_category(request):
     if request.method == 'POST':
@@ -97,14 +98,11 @@ def get_net_income(user, year=None, month=None):
     return net_income, total_expense, total_income
 
 
- 
 @login_required(login_url="users:login")
 def dashboard(request):
-    # Get the current year for the dropdown
     current_year = datetime.now().year
-    years = [year for year in range(current_year - 5, current_year + 1)]  # Last 5 years plus current year
+    years = [year for year in range(current_year - 5, current_year + 1)]
 
-    # Generate a list of months
     months = [
         {'value': '01', 'display': 'January'},
         {'value': '02', 'display': 'February'},
@@ -120,25 +118,26 @@ def dashboard(request):
         {'value': '12', 'display': 'December'},
     ]
     
-    # Handle the year and month filter if selected
     selected_month = request.GET.get('month')
     selected_year = request.GET.get('year')
+    selected_category = request.GET.get('category')
 
-    # Validate month and year inputs
     month = int(selected_month) if selected_month else None
     year = int(selected_year) if selected_year else None
 
-    # Calculate net income and totals based on selected month and year
     net_income, total_expense, total_income = get_net_income(user=request.user, year=year, month=month)
 
-    # Fetch transactions based on selected month and year
     filter_kwargs = {'user': request.user}
     if year:
         filter_kwargs['date__year'] = year
     if month:
         filter_kwargs['date__month'] = month
+    if selected_category:
+        filter_kwargs['category_id'] = selected_category
 
     transactions = Transaction.objects.filter(**filter_kwargs).order_by('-date')
+
+    categories = Category.objects.filter(user=request.user)  # Fetch user's categories
 
     context = {
         'total_income': total_income,
@@ -147,6 +146,7 @@ def dashboard(request):
         'transactions': transactions,
         'months': months,
         'years': years,
+        'categories': categories,  # Pass categories to the template
     }
 
     return render(request, 'tracking/dashboard.html', context=context)
