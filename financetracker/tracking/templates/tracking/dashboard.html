@@ -51,7 +51,7 @@
                 <div class="card text-white bg-success mb-4">
                     <div class="card-header">Total Income</div>
                     <div class="card-body">
-                        <h5 class="card-title">$0.00</h5>
+                        <h5 class="card-title">{{ net_income }}</h5>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 <div class="card text-white bg-danger mb-4">
                     <div class="card-header">Total Expenses</div>
                     <div class="card-body">
-                        <h5 class="card-title">$0.00</h5> 
+                        <h5 class="card-title">${{ net_expense }}</h5> 
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
         </div>
 
         <div class="mb-4">
-            <a href="{% url 'tracking:createAccount' %}" class="btn btn-warning shadow">Create Account</a>
+            <!-- <a href="{% url 'tracking:createAccount' %}" class="btn btn-warning shadow">Create Account</a> -->
             <a href="{% url 'tracking:createCategory' %}" class="btn btn-warning shadow">Create Category</a>
             <a href="{% url 'tracking:createTransaction' %}" class="btn btn-warning shadow">Add Transaction</a>
         </div>
@@ -91,15 +91,20 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Example row; replace with actual data -->
-                <tr>
-                    <td>YYYY-MM-DD</td>
-                    <td>Example Transaction</td>
-                    <td>$0.00</td>
-                </tr>
+                {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.date }}</td>
+                        <td>{{ transaction.description }}</td>
+                        <td>${{ transaction.amount }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">No transactions found.</td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
-    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

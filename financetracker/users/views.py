@@ -60,7 +60,7 @@ def register_user(request):
         default_categories = [
             {'catname': 'Groceries', 'description': 'Daily grocery expenses'},
             {'catname': 'Utilities', 'description': 'Monthly utility bills'},
-            {'catname': 'Entertainment', 'description': 'Leisure and entertainment expenses'},
+            {'catname': 'Entertainment', 'description': 'Leisure and entertainment expenses'}, 
         ]
 
         for category in default_categories:
@@ -71,10 +71,15 @@ def register_user(request):
                 essential=False  # You can set this based on your needs
             )
 
+        # Create a default account for the user
+        Account.objects.create(
+            user=user,
+            account_type='Personal',
+            account_description='Default account for personal expenses'
+        )
+
         messages.info(request, 'Registration Successful')
         return redirect('users:login')
-    
-    return render(request, 'users/registerpage.html')
 
 
 @login_required(login_url='users:login')
