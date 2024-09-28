@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .forms import CategoryForm, AccountForm, TransactionForm
 from django.contrib.auth.decorators import login_required
 
+from .models import Category
 
 @login_required(login_url = "users:login")
 def create_category(request):
@@ -29,8 +30,10 @@ def create_account(request):
     return render(request, 'tracking/createAccount.html', context={'form': form})
 
 
+
 @login_required(login_url='users:login')
 def create_transaction(request):
+    categories = Category.objects.filter(user=request.user)  # Fetch categories for the logged-in user
     if request.method == 'POST':
         form = TransactionForm(request.POST)
         if form.is_valid():
@@ -40,7 +43,9 @@ def create_transaction(request):
             return redirect('tracking:dashboard')
     else:
         form = TransactionForm()
-    return render(request, 'tracking/createTransaction.html', context={'form': form})
+
+    return render(request, 'tracking/createTransaction.html', context={'form': form, 'categories': categories})
+
 
 
 @login_required(login_url = "users:login")

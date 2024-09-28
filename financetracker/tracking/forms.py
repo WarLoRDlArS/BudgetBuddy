@@ -14,7 +14,7 @@ class AccountForm(forms.ModelForm):
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ['amount', 'description', 'transaction_type', 'date']
+        fields = ['amount', 'description', 'transaction_type', 'date', 'category', ]
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
-        }
+        } 
