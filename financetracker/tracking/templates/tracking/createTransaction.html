@@ -16,37 +16,51 @@
             <div class="form-group">
                 <label for="amount">Amount</label>
                 <input type="number" name="amount" id="amount" class="form-control" placeholder="Enter transaction amount" required min="0" step="0.01">
-                <small class="form-text text-muted">Please enter a positive amount.</small>
+                {% if form.amount.errors %}
+                    <div class="text-danger">{{ form.amount.errors }}</div>
+                {% endif %}
             </div>
-
+            
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea name="description" id="description" class="form-control" placeholder="Enter transaction description" required></textarea>
+                {% if form.description.errors %}
+                    <div class="text-danger">{{ form.description.errors }}</div>
+                {% endif %}
             </div>
-
+            
             <div class="form-group">
                 <label for="transaction_type">Transaction Type</label>
                 <select name="transaction_type" id="transaction_type" class="form-control" required>
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
                 </select>
+                {% if form.transaction_type.errors %}
+                    <div class="text-danger">{{ form.transaction_type.errors }}</div>
+                {% endif %}
             </div>
-
+            
             <div class="form-group">
                 <label for="date">Date</label>
                 <input type="date" name="date" id="date" class="form-control" required>
+                {% if form.date.errors %}
+                    <div class="text-danger">{{ form.date.errors }}</div>
+                {% endif %}
             </div>
-
+            
             <div class="form-group">
                 <label for="category">Category</label>
                 <select name="category" id="category" class="form-control" required>
                     <option value="" disabled selected>Select a category</option>
                     {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.catname }}</option>
+                        <option value="{{ category.category_id }}">{{ category.catname }}</option>
                     {% endfor %}
                 </select>
+                {% if form.category.errors %}
+                    <div class="text-danger">{{ form.category.errors }}</div>
+                {% endif %}
             </div>
-
+                       
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 

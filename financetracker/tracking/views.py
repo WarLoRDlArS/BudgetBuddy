@@ -39,14 +39,20 @@ def create_account(request):
 
 @login_required(login_url='users:login')
 def create_transaction(request):
-    categories = Category.objects.filter(user=request.user)  # Fetch categories for the logged-in user
+    categories = Category.objects.filter(user=request.user)
+    
     if request.method == 'POST':
+        print(request.POST)  # This will show you the submitted form data
         form = TransactionForm(request.POST)
         if form.is_valid():
             transaction = form.save(commit=False)
             transaction.user = request.user  
             transaction.save()
+            # print(transaction)
             return redirect('tracking:dashboard')
+        else:
+            print("Form is invalid")
+            print(form.errors)  # Print out form errors for debugging
     else:
         form = TransactionForm()
 

@@ -38,7 +38,7 @@ def user_login(request):
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-from tracking.models import Category
+from tracking.models import Category, Account
 
 def register_user(request):
     if request.method == 'POST':
@@ -80,7 +80,8 @@ def register_user(request):
 
         messages.info(request, 'Registration Successful')
         return redirect('users:login')
-
+    
+    return render(request, 'users/registerpage.html')
 
 @login_required(login_url='users:login')
 def logout_user(request):
