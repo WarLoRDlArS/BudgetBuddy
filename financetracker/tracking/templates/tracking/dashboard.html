@@ -91,7 +91,7 @@
                     <th>Description</th>
                     <th>Amount</th>
                     <th>Category</th>
-                    <th>Action</th>
+                    <th>Actions</th> <!-- New actions column -->
                 </tr>
             </thead>
             <tbody>
@@ -102,8 +102,13 @@
                         <td>${{ transaction.amount }}</td>
                         <td>{{ transaction.category.catname }}</td>
                         <td>
+                            <!-- Edit Button -->
+                            <a href="{% url 'tracking:editTransaction' transaction.id %}" class="btn btn-primary btn-sm">Edit</a>
                             <!-- Delete Button -->
-                            <a href="{% url 'tracking:deleteTransaction' transaction.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            <form action="{% url 'tracking:deleteTransaction' transaction.id %}" method="POST" style="display:inline-block;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 {% empty %}
@@ -113,6 +118,8 @@
                 {% endfor %}
             </tbody>
         </table>
+        
+        
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
