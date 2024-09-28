@@ -17,23 +17,6 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <!-- <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li> -->
-              <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>my-2 my-sm-0
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>  --> 
             </ul> 
             <a href="{% url 'users:logout' %}" class="btn btn-danger my-2 my-sm-0">Logout</a>
           </div>
@@ -76,7 +59,6 @@
         </div>
 
         <div class="mb-4">
-            <!-- <a href="{% url 'tracking:createAccount' %}" class="btn btn-warning shadow">Create Account</a> -->
             <a href="{% url 'tracking:createCategory' %}" class="btn btn-warning shadow">Create Category</a>
             <a href="{% url 'tracking:createTransaction' %}" class="btn btn-warning shadow">Add Transaction</a>
         </div>
@@ -88,6 +70,8 @@
                     <th>Date</th>
                     <th>Description</th>
                     <th>Amount</th>
+                    <th>Category</th>
+                    <th>Action</th> <!-- New column for actions -->
                 </tr>
             </thead>
             <tbody>
@@ -96,15 +80,20 @@
                         <td>{{ transaction.date }}</td>
                         <td>{{ transaction.description }}</td>
                         <td>${{ transaction.amount }}</td>
+                        <td>{{ transaction.category.catname }}</td>
+                        <td>
+                            <!-- Delete Button -->
+                            <a href="{% url 'tracking:deleteTransaction' transaction.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="3">No transactions found.</td>
+                        <td colspan="5">No transactions found.</td> <!-- Adjust colspan to 5 -->
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-
+        
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

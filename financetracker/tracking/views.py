@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import CategoryForm, AccountForm, TransactionForm
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import get_object_or_404
 from .models import Category
 from django.db.models import Sum
 from .models import Transaction
@@ -86,3 +86,12 @@ def dashboard(request):
     }
     return render(request,'tracking/dashboard.html', context=context)
 
+@login_required(login_url="users:login")
+def delete_transaction(request, pk):
+    transaction = get_object_or_404(Transaction, id=pk, user=request.user)
+    
+    if request.method == 'POST':
+        transaction.delete()
+        return redirect('tracking:dashboard')
+    
+    return render(request, 'tracking/confirm_delete.html', {'transaction': transaction})
