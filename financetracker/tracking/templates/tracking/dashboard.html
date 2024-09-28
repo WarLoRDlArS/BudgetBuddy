@@ -23,7 +23,6 @@
         </div>
     </nav>
 
-
     <div class="container mt-5">
         <h1 class="mb-4">Dashboard</h1>
 
@@ -34,7 +33,7 @@
                 <div class="card text-white bg-success mb-4">
                     <div class="card-header">Total Income</div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ net_income }}</h5>
+                        <h5 class="card-title">${{ total_income }}</h5>
                     </div>
                 </div>
             </div>
@@ -43,7 +42,7 @@
                 <div class="card text-white bg-danger mb-4">
                     <div class="card-header">Total Expenses</div>
                     <div class="card-body">
-                        <h5 class="card-title">${{ net_expense }}</h5> 
+                        <h5 class="card-title">${{ total_expense }}</h5> 
                     </div>
                 </div>
             </div>
@@ -52,7 +51,7 @@
                 <div class="card text-white bg-info mb-4">
                     <div class="card-header">Balance</div>
                     <div class="card-body">
-                        <h5 class="card-title">$0.00</h5> 
+                        <h5 class="card-title">${{ net_income }}</h5> 
                     </div>
                 </div>
             </div>
@@ -63,6 +62,27 @@
             <a href="{% url 'tracking:createTransaction' %}" class="btn btn-warning shadow">Add Transaction</a>
         </div>
 
+        <form method="GET" action="{% url 'tracking:dashboard' %}" class="mb-4">
+            <div class="input-group">
+                <select name="year" class="form-select">
+                    <option value="">All Years</option>
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+                
+                <select name="month" class="form-select">
+                    <option value="">All Time</option>
+                    {% for month in months %}
+                        <option value="{{ month.value }}">{{ month.display }}</option>
+                    {% endfor %}
+                </select>
+                
+                <button type="submit" class="btn btn-primary">View Transactions</button>
+            </div>
+        </form>
+        
+
         <h3>Recent Transactions</h3>
         <table class="table">
             <thead>
@@ -71,7 +91,7 @@
                     <th>Description</th>
                     <th>Amount</th>
                     <th>Category</th>
-                    <th>Action</th> <!-- New column for actions -->
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -88,12 +108,11 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="5">No transactions found.</td> <!-- Adjust colspan to 5 -->
+                        <td colspan="5">No transactions found.</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

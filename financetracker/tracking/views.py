@@ -5,7 +5,8 @@ from django.shortcuts import get_object_or_404
 from .models import Category
 from django.db.models import Sum
 from .models import Transaction
-
+from django.utils import timezone
+from datetime import timedelta, datetime
  
 @login_required(login_url="users:login")
 def create_category(request):
@@ -41,8 +42,7 @@ def create_account(request):
 def create_transaction(request):
     categories = Category.objects.filter(user=request.user)
     
-    if request.method == 'POST':
-        print(request.POST)  # This will show you the submitted form data
+    if request.method == 'POST': 
         form = TransactionForm(request.POST)
         if form.is_valid():
             transaction = form.save(commit=False)
@@ -60,31 +60,96 @@ def create_transaction(request):
 
 
 
-def get_net_income(user):
+from django.utils import timezone
+from django.db.models import Sum
+from datetime import timedelta
+
+def get_net_income(user, year=None, month=None):
     """
-    Calculate the net income for the given user.
+    Calculate the net income for the given user for the specified month and year.
     """
-    total_income = Transaction.objects.filter(user=user, transaction_type='income').aggregate(Sum('amount'))['amount__sum'] or 0
-    total_expense = Transaction.objects.filter(user=user, transaction_type='expense').aggregate(Sum('amount'))['amount__sum'] or 0
+    # Get the current date
+    now = timezone.now()
+    
+    if year and month:
+        # Calculate the first and last day of the specified month
+        first_day_of_month = timezone.datetime(year, month, 1)
+        last_day_of_month = (first_day_of_month + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+    else:
+        # Default to the current month
+        first_day_of_month = now.replace(day=1)
+        last_day_of_month = (first_day_of_month + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+    
+    total_expense = Transaction.objects.filter(
+        user=user,
+        transaction_type='expense',
+        date__range=[first_day_of_month, last_day_of_month]
+    ).aggregate(Sum('amount'))['amount__sum'] or 0
+
+    total_income = Transaction.objects.filter(
+        user=user,
+        transaction_type='income',
+        date__range=[first_day_of_month, last_day_of_month]
+    ).aggregate(Sum('amount'))['amount__sum'] or 0
+
     net_income = total_income - total_expense
-    return net_income
+    return net_income, total_expense, total_income
 
-def get_net_expense(user):
-    """
-    Calculate the net expense for the given user.
-    """
-    total_expense = Transaction.objects.filter(user=user, transaction_type='expense').aggregate(Sum('amount'))['amount__sum'] or 0
-    return total_expense
 
-@login_required(login_url = "users:login")
+ 
+@login_required(login_url="users:login")
 def dashboard(request):
-    transactions = Transaction.objects.filter(user=request.user).order_by('-date')
+    # Get the current year for the dropdown
+    current_year = datetime.now().year
+    years = [year for year in range(current_year - 5, current_year + 1)]  # Last 5 years plus current year
+
+    # Generate a list of months
+    months = [
+        {'value': '01', 'display': 'January'},
+        {'value': '02', 'display': 'February'},
+        {'value': '03', 'display': 'March'},
+        {'value': '04', 'display': 'April'},
+        {'value': '05', 'display': 'May'},
+        {'value': '06', 'display': 'June'},
+        {'value': '07', 'display': 'July'},
+        {'value': '08', 'display': 'August'},
+        {'value': '09', 'display': 'September'},
+        {'value': '10', 'display': 'October'},
+        {'value': '11', 'display': 'November'},
+        {'value': '12', 'display': 'December'},
+    ]
+    
+    # Handle the year and month filter if selected
+    selected_month = request.GET.get('month')
+    selected_year = request.GET.get('year')
+
+    # Validate month and year inputs
+    month = int(selected_month) if selected_month else None
+    year = int(selected_year) if selected_year else None
+
+    # Calculate net income and totals based on selected month and year
+    net_income, total_expense, total_income = get_net_income(user=request.user, year=year, month=month)
+
+    # Fetch transactions based on selected month and year
+    filter_kwargs = {'user': request.user}
+    if year:
+        filter_kwargs['date__year'] = year
+    if month:
+        filter_kwargs['date__month'] = month
+
+    transactions = Transaction.objects.filter(**filter_kwargs).order_by('-date')
+
     context = {
-        'net_income': get_net_income(request.user),
-        'get_net_expense': get_net_expense(request.user),
+        'total_income': total_income,
+        'total_expense': total_expense,
+        'net_income': net_income,
         'transactions': transactions,
+        'months': months,
+        'years': years,
     }
-    return render(request,'tracking/dashboard.html', context=context)
+
+    return render(request, 'tracking/dashboard.html', context=context)
+
 
 @login_required(login_url="users:login")
 def delete_transaction(request, pk):
