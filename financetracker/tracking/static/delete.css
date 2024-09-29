@@ -1,0 +1,71 @@
+/* styles.css */
+
+/* General body styles */
+body {
+    background-color: #ADD8E6;  /* Light background for the body */
+    font-family: 'ROBOTO', sans-serif;
+    color: #343a40;  /* Text color */
+}
+
+/* Container styles */
+.container {
+    max-width: 600px;  /* Limit max width for better readability */
+    padding: 40px;
+    margin-top: 50px;
+    border-radius: 10px;  /* Rounded corners */
+    background-color: #ffffff;  /* White background for the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
+}
+
+/* Header styles */
+h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #dc3545;  /* Bootstrap danger color */
+    margin-bottom: 20px;
+}
+
+/* Text styles */
+p {
+    font-size: 18px;  /* Increased font size for better readability */
+}
+
+/* Button styles */
+.btn-danger {
+    background-color: #dc3545;  /* Bootstrap danger color */
+    color: #ffffff;  /* White text for the button */
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;  /* Darken on hover */
+}
+
+.btn-secondary {
+    background-color: #6c757d;  /* Bootstrap secondary color */
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;  /* Darken on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;  /* Reduce padding on mobile */
+    }
+
+    h2 {
+        font-size: 24px;  /* Smaller font size for mobile */
+    }
+
+    p {
+        font-size: 16px;  /* Smaller font size for mobile */
+    }
+}

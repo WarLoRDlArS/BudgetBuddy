@@ -1,0 +1,97 @@
+/* styles.css */
+
+/* General body styles */
+body {
+      
+    background-color: #ADD8E6 !important ;  /* Light background for the body */
+    font-family: 'ROBOTO', sans-serif;
+    color: #343a40;  /* Text color */
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #007bff;  /* Bootstrap primary color */
+}
+
+.navbar-brand {
+    color: #ffffff;  /* White text for the brand */
+}
+
+.nav-link {
+    color: #ffffff;  /* White text for links */
+}
+
+.nav-link:hover {
+    color: #e2e6ea;  /* Lighten on hover */
+}
+
+/* Container styles */
+.container {
+    max-width: 1200px;  /* Limit max width for better readability */
+    padding: 40px;
+    margin-top: 30px;
+}
+
+/* Header styles */
+h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #000000;  /* Bootstrap primary color */
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+/* Card styles */
+.card {
+    border-radius: 10px;  /* Rounded corners */
+    transition: transform 0.3s ease;  /* Transition for hover effect */
+}
+
+.card:hover {
+    transform: scale(1.05);  /* Scale up on hover */
+}
+
+.card-header {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Button styles */
+.btn-warning {
+    background-color: #ffc107;  /* Bootstrap warning color */
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;  /* Darken on hover */
+}
+
+/* Table styles */
+.table {
+    background-color: #ffffff;  /* White background for the table */
+    border-radius: 10px;  /* Rounded corners */
+    overflow: hidden;  /* Hide overflow for rounded corners */
+}
+
+.table th, .table td {
+    vertical-align: middle;  /* Center align text */
+}
+
+.table thead th {
+    background-color: #007bff;  /* Bootstrap primary color for header */
+    color: white;  /* White text for header */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;  /* Reduce padding on mobile */
+    }
+
+    h1 {
+        font-size: 28px;  /* Smaller font size for mobile */
+    }
+}

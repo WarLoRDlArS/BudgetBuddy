@@ -1,0 +1,82 @@
+/* General body styles */
+body {
+    background-color: #f0f4f8; /* Light background for better readability */
+    font-family: 'Arial', sans-serif; /* Stylish font */
+    color: #343a40; /* Text color */
+}
+
+/* Container styles */
+.container {
+    max-width: 600px; /* Limit max width for better readability */
+    padding: 40px; /* Add padding */
+    background-color: #ffffff; /* White background for the form container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+}
+
+/* Header styles */
+h1 {
+    text-align: center; /* Center align the header */
+    font-size: 28px; /* Header font size */
+    color: #007bff; /* Bootstrap primary color */
+    margin-bottom: 30px; /* Space below the header */
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primary color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Button padding */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Bootstrap secondary color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Button padding */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker grey on hover */
+}
+
+/* Form styles */
+form {
+    margin-top: 20px; /* Space above the form */
+}
+
+/* Adjust input fields */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+textarea {
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #ced4da; /* Border color */
+    padding: 10px; /* Padding inside input fields */
+    width: 100%; /* Full width */
+    margin-bottom: 15px; /* Space below input fields */
+    transition: border-color 0.3s ease; /* Transition for focus effect */
+}
+
+input:focus,
+textarea:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove outline */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px; /* Reduce padding on mobile */
+    }
+    h1 {
+        font-size: 24px; /* Smaller font size for mobile */
+    }
+}

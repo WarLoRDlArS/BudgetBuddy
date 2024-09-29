@@ -1,0 +1,122 @@
+/* styles.css */
+
+/* General body styles */
+body {
+    background-color: #ADD8E6;  /* Light grey background */
+    font-family: 'ROBOTO', sans-serif;
+    color: #333;  /* Dark text color */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container styles */
+.container {
+    max-width: 700px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);  /* Light shadow for a clean look */
+    padding: 40px;
+    margin-top: 50px;
+}
+
+/* Form title styles */
+h1 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #007bff;  /* Primary Bootstrap color */
+}
+
+/* Form labels */
+label {
+    font-weight: 500;
+    color: #495057;  /* Slightly dark grey for labels */
+}
+
+/* Input field styles */
+.form-control {
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ced4da;  /* Light border */
+    transition: border-color 0.3s ease;
+}
+
+/* Focused input field */
+.form-control:focus {
+    border-color: #007bff;  /* Highlight input field on focus */
+    box-shadow: none;
+}
+
+/* Textarea field styling */
+textarea.form-control {
+    height: 150px;
+    resize: none;
+}
+
+/* Select dropdown styling */
+select.form-control {
+    height: auto;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Submit button styling */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;  /* Full width button */
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for submit button */
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Secondary button styles */
+.btn-secondary, .btn-info {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    width: 48%;  /* 48% to fit two buttons side by side */
+    margin-right: 2%;  /* Small gap between the two buttons */
+}
+
+/* Hover effects for secondary buttons */
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}
+
+/* Space between form elements and buttons */
+.mb-4 {
+    margin-bottom: 30px !important;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .btn-primary, .btn-secondary, .btn-info {
+        font-size: 14px;
+        width: 100%;  /* Full width on smaller screens */
+        margin-top: 10px;
+    }
+}

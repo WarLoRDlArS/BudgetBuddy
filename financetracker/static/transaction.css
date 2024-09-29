@@ -1,0 +1,118 @@
+/* styles.css */
+
+/* General body styles */
+body {
+    background-color: #ADD8E6;  /* Light background */
+    font-family: 'ROBOTO', sans-serif;
+    color: #333;  /* Text color */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container styles */
+.container {
+    max-width: 700px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+    padding: 40px;
+    margin-top: 50px;
+}
+
+/* Form title */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #007bff;  /* Bootstrap primary color */
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+/* Form group labels */
+label {
+    font-weight: 500;
+    color: #495057;
+}
+
+/* Input field styles */
+.form-control {
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s ease;
+}
+
+/* Focus effect for input fields */
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: none;
+}
+
+/* Textarea styles */
+textarea.form-control {
+    height: 150px;
+    resize: none;
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;  /* Full-width button */
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;  /* Darker blue on hover */
+}
+
+/* Info button styles */
+.btn-info {
+    background-color: #17a2b8;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}
+
+/* Error message styling */
+.text-danger {
+    font-size: 14px;
+    color: #e74c3c;  /* Red for error messages */
+    margin-top: 5px;
+}
+
+/* Margin between form elements and buttons */
+.mb-4 {
+    margin-bottom: 30px !important;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .btn-primary,
+    .btn-info {
+        font-size: 14px;
+        width: 100%;
+    }
+}
