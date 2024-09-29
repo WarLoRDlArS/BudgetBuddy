@@ -4,7 +4,7 @@
 body {
     background-color: #317ced;
     font-family: 'Roboto', sans-serif;
-    color: #333;
+    color: #495057;
     margin: 0;
     padding: 0;
 }
@@ -26,7 +26,7 @@ body {
 }
 
 h2 {
-    color: #333;
+    color: #495057;
     text-align: center;
     font-weight: 600;
 }
